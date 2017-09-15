@@ -1,1 +1,2 @@
-from fortimailapi import FortiMailAPI
+from . import fortimailapi
+FortiMailAPI = fortimailapi.FortiMailAPI
