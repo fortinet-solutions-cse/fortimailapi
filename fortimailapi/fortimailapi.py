@@ -80,14 +80,11 @@ class FortiMailAPI(object):
             self.url_prefix = 'http://' + self.host
 
         url = self.url_prefix + '/api/v1/AdminLogin'
-
         payload = '{"name":"' + username + '","password":"' + password + '"}'
-        headers = {'content-type': "application/json" }
-
-        res = requests.request("POST", url, data=payload, headers=headers)
+        self._session.headers = {'content-type': "application/json" }
+        res = self._session.post(url, data=payload)
 
         self._fortiversion = res.json()['product_version']
-
         self.store_session_cookie(res.cookies)
 
         self.logging(res)
@@ -105,27 +102,29 @@ class FortiMailAPI(object):
 
     def get(self, resource, domain=None):
         url = self.cmdb_url(resource, domain)
-
         res = self._session.get(url)
         LOG.debug("in GET function")
         return self.format_response(res)
 
     def post(self, resource, domain=None, data=None):
         url = self.cmdb_url(resource, domain)
-        res = self._session.post(url, data=json.dumps(data))
+        self._session.headers = {'content-type': "application/json"}
+        res = self._session.post(url, data=data)
         LOG.debug("in POST function")
         return self.format_response(res)
 
     def put(self, resource, domain=None, data=None):
         url = self.cmdb_url(resource, domain)
-        res = self._session.put(url, data=json.dumps(data))
+        self._session.headers = {'content-type': "application/json"}
+        res = self._session.put(url, data=data)
         LOG.debug("in PUT function")
         return self.format_response(res)
 
     def delete(self, resource, domain=None, data=None):
         url = self.cmdb_url(resource, domain)
-        res = self._session.delete(url, data=json.dumps(data))
-        LOG.debug("in PUT function")
+        self._session.headers = {'content-type': "application/json"}
+        res = self._session.delete(url, data=data)
+        LOG.debug("in DELETE function")
         return self.format_response(res)
 
     def license(self):
