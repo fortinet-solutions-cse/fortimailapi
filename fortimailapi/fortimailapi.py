@@ -23,7 +23,6 @@
 #
 ###################################################################
 
-
 import requests
 
 import json
@@ -116,8 +115,9 @@ class FortiMailAPI(object):
     def put(self, resource, domain=None, data=None):
         url = self.cmdb_url(resource, domain)
         self._session.headers = {'content-type': "application/json"}
-        res = self._session.put(url, data=data)
-        LOG.debug("in PUT function")
+        formatted_json = data.decode('utf8').replace("'", '"')
+        res = self._session.put(url, data=formatted_json)
+        LOG.debug("in PUT function. Data: "+formatted_json)
         return self.format_response(res)
 
     def delete(self, resource, domain=None, data=None):

@@ -157,21 +157,21 @@ def test_get_domain(session):
 def test_change_attribute_in_domain(session):
 
     payload = """{    
-    "objectID": \"DomainSetting:{D:dsa.com}",
+    "objectID": "DomainSetting:{D:dsa.com}",
     "mdomain": "dsa.com",
     "max_msg_size": 10800}"""
 
     res = session.put("", "dsa.com", payload)
     if res["max_msg_size"] != 10800:
         log.info(res)
-        assert 0, "Max_msg_size was not changed after put operation:" +\
+        assert 0, "Max_msg_size was not changed after put operation:" + \
                   res["max_msg_size"]
 
 
     res = session.get("", "dsa.com")
     if res["max_msg_size"] != 10800:
         log.info(res)
-        assert 0, "Max_msg_size was not changed after put & get operation:"+\
+        assert 0, "Max_msg_size was not changed after put & get operation:" + \
                   res["max_msg_size"]
 
 def test_delete_domain(session):
