@@ -10,7 +10,7 @@ def readme():
 setup(
     name='fortimailapi',
     packages=['fortimailapi'],
-    version='0.1.0',
+    version='0.1.1',
     description='Python modules to interact with FortiMail product from Fortinet using REST API',
     long_description=readme(),
     # Valid Classifiers are here: https://pypi.python.org/pypi?%3Aaction=list_classifiers
